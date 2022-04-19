@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산기 만들기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>ヒカルの電卓</h1>
+    <div class="calculator">
+        <div class="inner">
+            <input type="text" id="resultfld">
+
+            <div class="row">
+                <input type="button" value="7" onclick="btn_click(7)">
+                <input type="button" value="8" onclick="btn_click(8)">
+                <input type="button" value="9" onclick="btn_click(9)">
+                <input type="button" value="AC" onclick="reset()">
+            </div>
+            <div class="row">
+                <input type="button" value="4" onclick="btn_click(4)">
+                <input type="button" value="5" onclick="btn_click(5)">
+                <input type="button" value="6" onclick="btn_click(6)">
+                <input type="button" value="X" onclick="cal('*')">
+                <input type="button" value="/" onclick="cal('/')">
+            </div>
+            <div class="row">
+                <input type="button" value="1" onclick="btn_click(1)">
+                <input type="button" value="2" onclick="btn_click(2)">
+                <input type="button" value="3" onclick="btn_click(3)">
+                <input type="button" value="+" onclick="cal('+')">
+                <input type="button" value="-" onclick="cal('-')">
+            </div>
+            <div class="row">
+                <input type="button" value="^^" id="blank">
+                <input type="button" value="0" onclick="btn_click(0)">
+                <input type="button" value=". " onclick="btn_click('.')">
+                <input type="button" value="%" onclick="cal('%')">
+                <input type="button" value="=" onclick="compute()">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    // 버튼 눌렀을 때 숫자가 눌리는 함수 작성
+        function btn_click(a) {
+            resultfld.value += a;
+        }
+    
+    // 연산자 버튼 활성화 함수 작성 
+        var num = 0;
+        var symbol;  // 연산자
+
+        function cal(b) {
+            var firstNum = (document.getElementById("resultfld").value);
+            /*외부에서 입력받은 데이터를 취급하는법: text필드 gui를 가져와서
+            dom모델을 근거로 해당되는 곳으로 간다 ->document
+            num1이라는 id에 의해 구분되는 element를 가져와서 그것의 값을 가져와라
+            var num = document.getElementById('num1').value;
+            */
+            num = firstNum;
+            symbol = b;
+            return document.getElementById("resultfld").value = "";
+        }
+
+    // 결과값 내는 함수 작성
+        function compute() {
+            var secNum = (document.getElementById("resultfld").value);
+            var result;
+            switch (symbol) {
+                case '+': result = Number(num) + Number(secNum);
+                document.getElementById("resultfld").value = result;
+                break;
+                case '-': result = Number(num) - Number(secNum);
+                document.getElementById("resultfld").value = result;
+                break;
+                case '*': result = Number(num) * Number(secNum);
+                document.getElementById("resultfld").value = result;
+                break;
+                case '/': result = Number(num) / Number(secNum);
+                document.getElementById("resultfld").value = result;
+                break;
+                case '%': result = Number(num) % Number(secNum);
+                document.getElementById("resultfld").value=result;
+            }
+        }
+
+    // reset 버튼 함수 작성
+        function reset() {
+            document.getElementById("resultfld").value = "";
+            num = 0;
+        }
+    </script>
+</body>
+</html>
